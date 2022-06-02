@@ -1,2 +1,0 @@
-./random.ch;
-./web.ch;

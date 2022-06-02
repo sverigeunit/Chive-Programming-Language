@@ -1,1 +1,0 @@
-This is a simple number guesser. Make sure that the librarys from include.ch are in this directory.
