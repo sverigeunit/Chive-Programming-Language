@@ -1,7 +1,5 @@
 # Chive Programming Language
-<a href="url"><img src="./img/logo.png" align="left" height="175" width="175" ></a><br>
-
-
+<a href="url"><img src="./img/logo.png" height="175" width="175" ></a><br>
 The chive programming language is a write once, run anywhere programming language in a bite sized package. It has syntax similar to BASIC which means that anyone can learn chive easily. Not only that but chive is really small. Its web release is only 6kb!!!
 
 Chive is under minimal development during the moment. I made it to learn cross platform programming and it has picked up a small following since. Currently there is one release for the web although the windows and linux releases are coming out soon. 
