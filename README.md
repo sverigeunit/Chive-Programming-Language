@@ -46,9 +46,9 @@ Or a simple fibonacci program:
 See the documentation for building the python or c++ source code. The javascript source code doesn't need to be built but it is advised to minify the code.
 ## To-Do
 
- - [ ] Build Python Version
- - [ ] Add Docs & Examples
- - [ ] Open Source C++ Version
- - [ ] Remake Games in Chive
- - [ ] Allow Desktop Chive To Use Canvas
+ - [ ] Build Desktop Executables
+ - [X] Add Examples
+ - [ ] Add Documentation
+ - [ ] Finish C++ Intepreter
+ - [ ] Make Desktop Graphics Library
 
