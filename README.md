@@ -5,6 +5,7 @@ The chive programming language is a write once, run anywhere programming languag
 Chive is under minimal development during the moment. I made it to learn cross platform programming and it has picked up a small following since. Currently there is one release for the web although the windows and linux releases are coming out soon. 
 
 Chive is built with python, javascript, and c++. The javascript interpreter is finished. The python interpreter is also finished although it needs to be built into a **working** executable. The c++ interpreter is also in the works and it aims at being a faster then the python executable interpreter.
+hello applesauce
 ## Usage
 To use chive you need to make a main.ch file and a include.ch file. The main.ch file will include all of your code while the include.ch file will point to library that you will be using. To use chive on the web you will need to create a index.html file that points to your code and chive.js . A tutorial for this is in ./docs
 
