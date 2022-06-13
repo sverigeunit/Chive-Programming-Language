@@ -1,4 +1,5 @@
 import time;
+import os;
 devicex = "pc";
 interval = 1000000000;
 code = [""];
@@ -108,3 +109,4 @@ code = code + co;
 while ix < len(code):
     run(code[ix])
     ix = ix + 1;
+input("");
