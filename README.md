@@ -10,6 +10,10 @@ To use chive you need to make a main.ch file and a include.ch file. The main.ch 
 
 To use chive on your desktop move the interpreter(chive.exe) to your location of your main.ch code and run it. The interpreter uses a terminal unlike the web version which doesn't include one. You can use the packager.exe to make an executable or web build of your chive app. The packager is still in production and is frankly un-needed
 
+F for fortran is making a tutorial series!
+<a href="[http://www.youtube.com/watch?feature=player_embedded&v=nTQUwghvy5](https://www.youtube.com/embed/smIqx5xYX3Q)Q" target="_blank">
+ <img src="http://img.youtube.com/vi/nTQUwghvy5Q/mqdefault.jpg" alt="Watch the video" width="240" height="180" border="10" />
+</a>
 ## Syntax
 Like I said earlier the syntax is just like BASIC but **easier**. Everything is done by simple commands which simplify's software development. Here is an example of a simple calculator made with chive:
 
