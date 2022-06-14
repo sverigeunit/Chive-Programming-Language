@@ -6,6 +6,7 @@ var conx = 1;
 var dx = 1;
 var interval = 100000000000000000;
 var key;
+var local_name = [];
 async function run(line, code) {
     line = line.split(" ")
     if (line[0].startsWith("\n")) {
@@ -30,6 +31,11 @@ async function run(line, code) {
         }
     }
     if (line[0] == "return") {
+        var x = 0;
+        while(x != local_name.length){
+          eval("delete window.this_" + local_name[x])
+          x += 1;
+        }
         ix = rx;
     }
     if (line[0] == "jump") {
@@ -68,6 +74,14 @@ async function run(line, code) {
         line.shift();
         line = line.join(" ");
         eval("window." + f + " = " + line + ";")
+    }
+    if(line[0] == "this_set"){
+      var f = line[1]
+        line.shift();
+        line.shift();
+        line = line.join(" ");
+        eval("window.this_" + f + " = " + line + ";")
+        local_name.push(f);
     }
     if (line[0] == "External.Execute") {
         line.shift();
@@ -164,8 +178,6 @@ function compile(code) {
 
 
 function tagload(t) {
-    //load main chocolate file
-    //team copy and pasted half of it. ;) we didnt even work with json
     var fx = document.getElementsByTagName("cscript")[0];
     fx = fx.outerHTML;
     fx = fx.replace(`<cscript src="`, "");
