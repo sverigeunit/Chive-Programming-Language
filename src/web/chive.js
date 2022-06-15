@@ -7,8 +7,12 @@ var dx = 1;
 var interval = 100000000000000000;
 var key;
 var local_name = [];
+
+// store all variables in $
+var $ = {};
+
 async function run(line, code) {
-    line = line.split(" ")
+    line = line.split(" ").map(l => l.trim())
     if (line[0].startsWith("\n")) {
         line[0] = line[0].replaceAll("\n", "")
     }
@@ -73,14 +77,14 @@ async function run(line, code) {
         line.shift();
         line.shift();
         line = line.join(" ");
-        eval("window." + f + " = " + line + ";")
+        eval("$." + f + " = " + line + "; window."+f+" = "+line)
     }
     if(line[0] == "this_set"){
       var f = line[1]
         line.shift();
         line.shift();
         line = line.join(" ");
-        eval("window.this_" + f + " = " + line + ";")
+        eval("$.this_"+f+" = "+line+"; window.this_" + f + " = " + line + ";")
         local_name.push(f);
     }
     if (line[0] == "External.Execute") {
@@ -117,7 +121,8 @@ async function run(line, code) {
       localStorage.setItem(eval(f), line)
     }
     if(line[0] == "readf"){
-      eval(line[1] + " = " + localStorage.getItem(eval(line[2])))
+      eval("$."+line[1] + " = " + localStorage.getItem(eval(line[2])))
+      eval("window."+line[1] + " = " + localStorage.getItem(eval(line[2])))
     }
     if(line[0] == "External.Canvas.Init"){
       screen = document.getElementById("ccanvas");
@@ -152,11 +157,35 @@ async function run(line, code) {
     }
 }
 var ix = 0;
-//compile code
-function compile(code) {
+
+// trim function
+function trimCode(code){
+    return code.split(';').map(l => {
+        var newLine = "";
+        var actualContent = false;
+        for(var i = 0; i < l.length; i++){
+            if(actualContent){
+                newLine += l[i];
+            }else if(l[i] != ' ' && l[i] != '\t' && l[i] != '' && l[i] != '\n' && l[i] != '\r'){
+                actualContent = true;
+                newLine += l[i];
+            }else if(l[i] == '\n'){
+                newLine += '\n';
+            }
+        }
+        return newLine;
+    }).join(';');
+}
+
+//interpret code
+function interpret(code) {
+
+    // remove all white spaces at the start of a sentence
+
+    var trimmed = trimCode(code);
 
     //run code
-    code = code.split(";");
+    code = trimmed.split(";");
     ix = 0;
     while (ix < code.length) {
         var line = code[ix];
@@ -192,7 +221,7 @@ function tagload(t) {
         if (jsonFile.readyState == 4 && jsonFile.status ==
             200) {
             tx = t + ";\n" + jsonFile.responseText;
-            compile(tx);
+            interpret(tx);
         }
     }
 
@@ -201,30 +230,31 @@ var screen;
 var ctx;
 async function loadfunc() {
     
-    var fx = document.getElementsByTagName("include")[0];
-    fx = fx.outerHTML;
-    fx = fx.replace(`<include src="`, "");
-    fx = fx.replace(`"></include>`, "")
-    var lx = await fetch(fx).then(x => x.text());
-    lx = lx.split(";")
-    var i = 0;
-    while (i < lx.length - 1) {
-        tx = await fetch(lx[i]).then(x => x.text()) + tx;
+    var fx = document.getElementsByTagName("include")[0] || "noInclude";
+    if(fx != "noInclude"){
+        fx = fx.outerHTML;
+        fx = fx.replace(`<include src="`, "");
+        fx = fx.replace(`"></include>`, "")
+        var lx = await fetch(fx).then(x => x.text());
+        lx = lx.split(";")
+        var i = 0;
+        while (i < lx.length - 1) {
+            tx = await fetch(lx[i]).then(x => x.text()) + tx;
 
-        i++;
+            i++;
+        }
+
+
+        tagload(tx);
     }
-
-
-    tagload(tx);
-
 }
 window.onload = loadfunc();
 /*window.onload = function(){
-  setTimeout(function(){compile(tx)}, 1000);
+  setTimeout(function(){interpret(tx)}, 1000);
 }*/
 
 function goto(code) {
-    compile('goto ' + code + ";" + '\n;' + tx)
+    interpret('goto ' + code + ";" + '\n;' + tx)
 }
 document.onkeydown = function(evt) {
     evt = evt || window.event;
