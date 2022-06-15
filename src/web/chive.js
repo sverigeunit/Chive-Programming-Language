@@ -8,9 +8,6 @@ var interval = 100000000000000000;
 var key;
 var local_name = [];
 
-// store all variables in $
-var $ = {};
-
 async function run(line, code) {
     line = line.split(" ").map(l => l.trim())
     if (line[0].startsWith("\n")) {
@@ -77,14 +74,14 @@ async function run(line, code) {
         line.shift();
         line.shift();
         line = line.join(" ");
-        eval("$." + f + " = " + line + "; window."+f+" = "+line)
+        eval("window."+f+" = "+line)
     }
     if(line[0] == "this_set"){
       var f = line[1]
         line.shift();
         line.shift();
         line = line.join(" ");
-        eval("$.this_"+f+" = "+line+"; window.this_" + f + " = " + line + ";")
+        eval("window.this_" + f + " = " + line + ";")
         local_name.push(f);
     }
     if (line[0] == "External.Execute") {
@@ -121,7 +118,6 @@ async function run(line, code) {
       localStorage.setItem(eval(f), line)
     }
     if(line[0] == "readf"){
-      eval("$."+line[1] + " = " + localStorage.getItem(eval(line[2])))
       eval("window."+line[1] + " = " + localStorage.getItem(eval(line[2])))
     }
     if(line[0] == "External.Canvas.Init"){
