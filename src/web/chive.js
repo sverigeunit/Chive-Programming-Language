@@ -89,8 +89,7 @@ async function run(line, code) {
         eval(line.join(" ").replaceAll(":::", ";"))
     }
     if (line[0] == "while") {
-        if (eval(line[1])) {
-        } else {
+        if (!eval(line[1])) {
             while (!code[ix].replaceAll("\n", "").startsWith("end")) {
                 ix += 1;
             }
@@ -174,7 +173,7 @@ function trimCode(code){
 }
 
 //interpret code
-function interpret(code) {
+function compile(code) {
 
     // remove all white spaces at the start of a sentence
 
