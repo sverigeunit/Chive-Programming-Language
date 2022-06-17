@@ -155,7 +155,7 @@ var ix = 0;
 
 // trim function
 function trimCode(code){
-    return code.split(/;|:/g).map(l => {
+    return code.split(/;/g).map(l => {
         var newLine = "";
         var actualContent = false;
         for(var i = 0; i < l.length; i++){

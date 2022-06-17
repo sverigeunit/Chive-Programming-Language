@@ -1,5 +1,6 @@
 import time
 import os
+import re
 devicex = "pc"
 interval = 1000000000
 code = [""]
@@ -8,11 +9,13 @@ rx = 0
 tx = 0
 conx = 1
 dx = 1
+def doTrim(v):
+    return v.strip()
 def run(line):
     global ix
     global code
     global rx
-    line = line.split(" ")
+    line = list(map(doTrim, line.split(" ")))
     if (line[0].startswith("\n")):
         line[0] = line[0].replace("\n", "")
     if (line[0] == "set"):
@@ -101,9 +104,28 @@ for x in contents:
     f.close
     code = code + co
 f = open("main.ch","r")
+
+def trimCodeMap1(l):
+    newLine = ""
+    actualContent = False
+    for i in range(len(l)):
+        if actualContent:
+            newLine += l[i]
+        elif l[i] != ' ' and l[i] != '\t' and l[i] != '' and l[i] != '\n' and l[i] != '\r':
+            actualContent = True
+            newLine += l[i]
+        elif l[i] == '\n':
+            newLine += '\n'
+    return newLine
+def trimCode(code):
+    return ";".join(list(map(trimCodeMap1, re.split(r';', code))))
+
+# compile code
 co = f.read().split(";")
 f.close
 code = code + co
+trimed = trimCode(";".join(code))
+code = trimed.split(";")
 while ix < len(code):
     run(code[ix])
     ix = ix + 1
