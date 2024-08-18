@@ -2,7 +2,7 @@
 <a href="url"><img src="./img/logo.png" height="175" width="175" ></a><br>
 The chive programming language is a write once, run anywhere programming language in a bite sized package. It has syntax similar to BASIC which means that anyone can learn chive easily. Not only that but chive is really small. Its web release is only 6kb!!!
 
-As of the current moment chive is under minimal development. I started working on it as a small project but it reached way more people then I thought that it would. I am working on a c++ interpreter smaller then 10kb. In the long term chive will be a smaller and faster alternative to Lua with a basic syntax for anyone to understand.
+As of the current moment chive is under minimal development. I started working on it as a small project but it reached way more people then I thought that it would. I am working on a c++ interpreter smaller then 10kb. In the long run chive will be a smaller and faster alternative to Lua with a basic syntax for anyone to understand.
  
 ## Usage
 To use chive you need to make a main.ch file and a include.ch file. The main.ch file will include all of your code while the include.ch file will point to the library that you will be using. To use chive on the web you will need to create a index.html file that points to your code and chive.js. Take a look at web examples.
